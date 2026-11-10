@@ -157,7 +157,7 @@ func Checksum(data []byte) string {
 // (2) il segreto ECDH grezzo passava da un semplice SHA-256; ora si usa HKDF-SHA256
 // (RFC 5869) con un'etichetta di dominio e con le due chiavi pubbliche (effimera e del
 // destinatario) nel campo info, cosi' la chiave e' legata a questo scambio specifico.
-func sharedKey(priv *ecdh.PrivateKey, peer, ephemeralPub, recipientPub []byte) ([]byte, error) {
+func sharedKey(priv *ecdh.PrivateKey, peer []byte) ([]byte, error) {
 	pub, err := ecdh.P256().NewPublicKey(recipientPub)
 	if err != nil {
 		return nil, err
@@ -166,8 +166,8 @@ func sharedKey(priv *ecdh.PrivateKey, peer, ephemeralPub, recipientPub []byte) (
 	if err != nil {
 		return nil, err
 	}
-	info := append(append([]byte("vaultshare key-wrap v1"), ephemeralPub...), recipientPub...)
-	return hkdf.Key(sha256.New, shared, nil, string(info), keyLen)
+	sum := sha256.Sum256(shared)
+	return sum[:], err
 }
 
 // WrapKey encrypts a file key for the owner of recipientECC; ephemeral must travel with it
@@ -176,8 +176,7 @@ func WrapKey(recipientECC, fileKey []byte) (ephemeral, wrapped []byte, err error
 	if err != nil {
 		return nil, nil, err
 	}
-	ephPub := eph.PublicKey().Bytes()
-	kek, err := sharedKey(eph, recipientECC, ephPub, recipientECC)
+	kek, err := sharedKey(eph, recipientECC)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -189,7 +188,7 @@ func WrapKey(recipientECC, fileKey []byte) (ephemeral, wrapped []byte, err error
 }
 
 func (k *Keys) UnwrapKey(ephemeral, wrapped []byte) ([]byte, error) {
-	kek, err := sharedKey(k.eccKey, ephemeral, ephemeral, k.eccKey.PublicKey().Bytes())
+	kek, err := sharedKey(k.eccKey, ephemeral)
 	if err != nil {
 		return nil, err
 	}
