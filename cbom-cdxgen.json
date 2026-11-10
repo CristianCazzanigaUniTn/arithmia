@@ -1,0 +1,849 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:4f39cab9-0e4e-4791-8b11-f61412d25f29",
+  "version": 2,
+  "metadata": {
+    "timestamp": "2026-11-10T14:32:39Z",
+    "tools": {
+      "components": [
+        {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.0.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.0.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.0.0",
+          "publisher": "OWASP Foundation",
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ]
+        }
+      ]
+    },
+    "authors": [
+      {
+        "name": "OWASP Foundation"
+      }
+    ],
+    "lifecycles": [
+      {
+        "phase": "build"
+      }
+    ],
+    "component": {
+      "group": "",
+      "name": "vaultshare",
+      "version": "",
+      "bom-ref": "library:vaultshare:",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "cdx:go:indirect",
+          "value": "false"
+        },
+        {
+          "name": "cdx:go:local_dir",
+          "value": "/app"
+        },
+        {
+          "name": "cdx:golem:callGraphEdgeCount",
+          "value": "61"
+        },
+        {
+          "name": "cdx:golem:callGraphMode",
+          "value": "static"
+        },
+        {
+          "name": "cdx:golem:callGraphNodeCount",
+          "value": "48"
+        },
+        {
+          "name": "cdx:golem:cryptoAlgorithms",
+          "value": "CSPRNG,aes,md5,sha-256"
+        },
+        {
+          "name": "cdx:golem:cryptoAssetCount",
+          "value": "4"
+        },
+        {
+          "name": "cdx:golem:cryptoFindingCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:cryptoLibraryCount",
+          "value": "7"
+        },
+        {
+          "name": "cdx:golem:cryptoOperationCount",
+          "value": "7"
+        },
+        {
+          "name": "cdx:golem:dataFlowCallGraphMode",
+          "value": "static"
+        },
+        {
+          "name": "cdx:golem:dataFlowMode",
+          "value": "none"
+        },
+        {
+          "name": "cdx:golem:dataFlowPacks",
+          "value": "all"
+        },
+        {
+          "name": "cdx:golem:declarationCount",
+          "value": "47"
+        },
+        {
+          "name": "cdx:golem:fileCount",
+          "value": "2"
+        },
+        {
+          "name": "cdx:golem:goDirectiveVersion",
+          "value": "1.26.0"
+        },
+        {
+          "name": "cdx:golem:importCount",
+          "value": "24"
+        },
+        {
+          "name": "cdx:golem:includeAllFlows",
+          "value": "false"
+        },
+        {
+          "name": "cdx:golem:licenseFileModuleCount",
+          "value": "3"
+        },
+        {
+          "name": "cdx:golem:moduleCount",
+          "value": "4"
+        },
+        {
+          "name": "cdx:golem:noRecurse",
+          "value": "false"
+        },
+        {
+          "name": "cdx:golem:packageCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:runtimeUsageCount",
+          "value": "116"
+        },
+        {
+          "name": "cdx:golem:securitySignalCategories",
+          "value": "deserialization,filesystem,weak-crypto"
+        },
+        {
+          "name": "cdx:golem:securitySignalCount",
+          "value": "5"
+        },
+        {
+          "name": "cdx:golem:securitySignalSeverities",
+          "value": "high,info,medium"
+        },
+        {
+          "name": "cdx:golem:toolVersion",
+          "value": "3.0.3"
+        },
+        {
+          "name": "cdx:golem:usageCount",
+          "value": "116"
+        },
+        {
+          "name": "internal:ModuleGoVersion",
+          "value": "1.26.0"
+        },
+        {
+          "name": "internal:SrcGoMod",
+          "value": "/app/go.mod"
+        }
+      ],
+      "type": "application"
+    },
+    "properties": [
+      {
+        "name": "cdx:bom:componentNamespaces",
+        "value": "github.com/cloudflare\\ngolang.org/x"
+      },
+      {
+        "name": "cdx:bom:componentSrcFiles",
+        "value": "go.mod"
+      },
+      {
+        "name": "cdx:bom:componentTypes",
+        "value": "golang"
+      }
+    ]
+  },
+  "components": [
+    {
+      "group": "",
+      "name": "github.com/cloudflare/circl",
+      "version": "v1.6.5",
+      "scope": "optional",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8792cdcb101ce674ee7bd0d2e634fee3c7a7d8f48362ddf37469f3e4eb2d2ba7"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "text": {
+              "contentType": "text/plain",
+              "content": "Copyright (c) 2019 Cloudflare. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n   * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n   * Redistributions in binary form must reproduce the above\ncopyright notice, this list of conditions and the following disclaimer\nin the documentation and/or other materials provided with the\ndistribution.\n   * Neither the name of Cloudflare nor the names of its\ncontributors may be used to endorse or promote products derived from\nthis software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n\n========================================================================\n\nCopyright (c) 2009 The Go Authors. All rights reserved.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n   * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n   * Redistributions in binary form must reproduce the above\ncopyright notice, this list of conditions and the following disclaimer\nin the documentation and/or other materials provided with the\ndistribution.\n   * Neither the name of Google Inc. nor the names of its\ncontributors may be used to endorse or promote products derived from\nthis software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+            },
+            "properties": [
+              {
+                "name": "cdx:license:category",
+                "value": "Unstated License"
+              },
+              {
+                "name": "cdx:license:foss",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:osiApproved",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:fsfLibre",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:deprecated",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      ],
+      "purl": "pkg:golang/github.com/cloudflare/circl@v1.6.5",
+      "type": "library",
+      "bom-ref": "pkg:golang/github.com/cloudflare/circl@v1.6.5",
+      "properties": [
+        {
+          "name": "cdx:go:creation_time",
+          "value": "2026-08-05 16:32:19 +0000 UTC"
+        },
+        {
+          "name": "cdx:go:indirect",
+          "value": "true"
+        },
+        {
+          "name": "cdx:go:local_dir",
+          "value": "/tmp/gopath/pkg/mod/github.com/cloudflare/circl@v1.6.5"
+        },
+        {
+          "name": "cdx:golem:goVersion",
+          "value": "1.25.0"
+        },
+        {
+          "name": "cdx:golem:importAliasKind",
+          "value": "default"
+        },
+        {
+          "name": "cdx:golem:importDirect",
+          "value": "true"
+        },
+        {
+          "name": "cdx:golem:importOccurrenceCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:licenseFileCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:licenseFiles",
+          "value": "LICENSE"
+        },
+        {
+          "name": "cdx:golem:modulePath",
+          "value": "github.com/cloudflare/circl"
+        },
+        {
+          "name": "cdx:golem:occurrenceEvidenceKinds",
+          "value": "import,symbolCall,symbolReference"
+        },
+        {
+          "name": "cdx:golem:runtimeUsageCount",
+          "value": "15"
+        },
+        {
+          "name": "cdx:golem:symbolCallOccurrenceCount",
+          "value": "7"
+        },
+        {
+          "name": "cdx:golem:symbolKind",
+          "value": "constant"
+        },
+        {
+          "name": "cdx:golem:symbolKind",
+          "value": "function"
+        },
+        {
+          "name": "cdx:golem:symbolKind",
+          "value": "type"
+        },
+        {
+          "name": "cdx:golem:symbolReferenceOccurrenceCount",
+          "value": "7"
+        },
+        {
+          "name": "cdx:golem:testOnly",
+          "value": "false"
+        },
+        {
+          "name": "cdx:golem:usageKind",
+          "value": "selector"
+        },
+        {
+          "name": "cdx:golem:usageScope",
+          "value": "runtime"
+        },
+        {
+          "name": "cdx:golem:usageScopes",
+          "value": "runtime"
+        },
+        {
+          "name": "cdx:license:category",
+          "value": "Unstated License"
+        },
+        {
+          "name": "internal:ModuleGoVersion",
+          "value": "1.25.0"
+        },
+        {
+          "name": "internal:SrcGoMod",
+          "value": "/tmp/gopath/pkg/mod/cache/download/github.com/cloudflare/circl/@v/v1.6.5.mod"
+        }
+      ],
+      "tags": [
+        "cloud"
+      ],
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "/app/crypto.go",
+            "line": 17
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 239
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 241
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 249
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 252
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 253
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 256
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 45
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 49
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 65
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 68
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 70
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 77
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 78
+          }
+        ],
+        "callstack": {
+          "frames": [
+            {
+              "package": "vaultshare",
+              "module": "static",
+              "function": "vaultshare.NewKeys",
+              "line": 49,
+              "column": 37,
+              "fullFilename": "/app/crypto.go"
+            },
+            {
+              "package": "github.com/cloudflare/circl/sign/mldsa/mldsa65",
+              "module": "function",
+              "function": "github.com/cloudflare/circl/sign/mldsa/mldsa65.NewKeyFromSeed",
+              "line": 46,
+              "column": 6,
+              "fullFilename": "/tmp/gopath/pkg/mod/github.com/cloudflare/circl@v1.6.5/sign/mldsa/mldsa65/dilithium.go"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "group": "",
+      "name": "golang.org/x/crypto",
+      "version": "v0.58.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "5e1fa497903e33480c8960f2b47d8786be59ed66cd0a9bff781fc41607d293ec"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "text": {
+              "contentType": "text/plain",
+              "content": "Copyright 2009 The Go Authors.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n   * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n   * Redistributions in binary form must reproduce the above\ncopyright notice, this list of conditions and the following disclaimer\nin the documentation and/or other materials provided with the\ndistribution.\n   * Neither the name of Google LLC nor the names of its\ncontributors may be used to endorse or promote products derived from\nthis software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+            },
+            "properties": [
+              {
+                "name": "cdx:license:category",
+                "value": "Unstated License"
+              },
+              {
+                "name": "cdx:license:foss",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:osiApproved",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:fsfLibre",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:deprecated",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/crypto@v0.58.0",
+      "type": "library",
+      "bom-ref": "pkg:golang/golang.org/x/crypto@v0.58.0",
+      "properties": [
+        {
+          "name": "cdx:go:creation_time",
+          "value": "2026-10-09 16:24:17 +0000 UTC"
+        },
+        {
+          "name": "cdx:go:indirect",
+          "value": "false"
+        },
+        {
+          "name": "cdx:go:local_dir",
+          "value": "/tmp/gopath/pkg/mod/golang.org/x/crypto@v0.58.0"
+        },
+        {
+          "name": "cdx:golem:goVersion",
+          "value": "1.26.0"
+        },
+        {
+          "name": "cdx:golem:importAliasKind",
+          "value": "default"
+        },
+        {
+          "name": "cdx:golem:importDirect",
+          "value": "true"
+        },
+        {
+          "name": "cdx:golem:importOccurrenceCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:licenseFileCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:licenseFiles",
+          "value": "LICENSE"
+        },
+        {
+          "name": "cdx:golem:modulePath",
+          "value": "golang.org/x/crypto"
+        },
+        {
+          "name": "cdx:golem:occurrenceEvidenceKinds",
+          "value": "import,symbolCall"
+        },
+        {
+          "name": "cdx:golem:runtimeUsageCount",
+          "value": "2"
+        },
+        {
+          "name": "cdx:golem:symbolCallOccurrenceCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:symbolKind",
+          "value": "function"
+        },
+        {
+          "name": "cdx:golem:testOnly",
+          "value": "false"
+        },
+        {
+          "name": "cdx:golem:usageKind",
+          "value": "selector"
+        },
+        {
+          "name": "cdx:golem:usageScope",
+          "value": "runtime"
+        },
+        {
+          "name": "cdx:golem:usageScopes",
+          "value": "runtime"
+        },
+        {
+          "name": "cdx:license:category",
+          "value": "Unstated License"
+        },
+        {
+          "name": "internal:ModuleGoVersion",
+          "value": "1.26.0"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "go.mod"
+        },
+        {
+          "name": "internal:SrcGoMod",
+          "value": "/tmp/gopath/pkg/mod/cache/download/golang.org/x/crypto/@v/v0.58.0.mod"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.7,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.7,
+                "value": "go.mod"
+              }
+            ],
+            "concludedValue": "go.mod"
+          }
+        ],
+        "occurrences": [
+          {
+            "location": "/app/crypto.go",
+            "line": 108
+          },
+          {
+            "location": "/app/crypto.go",
+            "line": 18
+          }
+        ],
+        "callstack": {
+          "frames": [
+            {
+              "package": "vaultshare",
+              "module": "static",
+              "function": "vaultshare.DeriveKey",
+              "line": 108,
+              "column": 21,
+              "fullFilename": "/app/crypto.go"
+            },
+            {
+              "package": "golang.org/x/crypto/argon2",
+              "module": "function",
+              "function": "golang.org/x/crypto/argon2.IDKey",
+              "line": 101,
+              "column": 6,
+              "fullFilename": "/tmp/gopath/pkg/mod/golang.org/x/crypto@v0.58.0/argon2/argon2.go"
+            }
+          ]
+        }
+      },
+      "tags": [
+        "crypto"
+      ]
+    },
+    {
+      "group": "",
+      "name": "golang.org/x/sys",
+      "version": "v0.49.0",
+      "scope": "optional",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "84d2f15805e69ca031a83b5dc08602e1b33da103c479c7ec9cd32e4b13acde88"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "name": "CUSTOM",
+            "text": {
+              "contentType": "text/plain",
+              "content": "Copyright 2009 The Go Authors.\n\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n\n   * Redistributions of source code must retain the above copyright\nnotice, this list of conditions and the following disclaimer.\n   * Redistributions in binary form must reproduce the above\ncopyright notice, this list of conditions and the following disclaimer\nin the documentation and/or other materials provided with the\ndistribution.\n   * Neither the name of Google LLC nor the names of its\ncontributors may be used to endorse or promote products derived from\nthis software without specific prior written permission.\n\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n"
+            },
+            "properties": [
+              {
+                "name": "cdx:license:category",
+                "value": "Unstated License"
+              },
+              {
+                "name": "cdx:license:foss",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:osiApproved",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:fsfLibre",
+                "value": "false"
+              },
+              {
+                "name": "cdx:license:deprecated",
+                "value": "false"
+              }
+            ]
+          }
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/sys@v0.49.0",
+      "type": "library",
+      "bom-ref": "pkg:golang/golang.org/x/sys@v0.49.0",
+      "properties": [
+        {
+          "name": "cdx:go:creation_time",
+          "value": "2026-10-06 18:35:47 +0000 UTC"
+        },
+        {
+          "name": "cdx:go:indirect",
+          "value": "true"
+        },
+        {
+          "name": "cdx:go:local_dir",
+          "value": "/tmp/gopath/pkg/mod/golang.org/x/sys@v0.49.0"
+        },
+        {
+          "name": "cdx:golem:goVersion",
+          "value": "1.26.0"
+        },
+        {
+          "name": "cdx:golem:licenseFileCount",
+          "value": "1"
+        },
+        {
+          "name": "cdx:golem:licenseFiles",
+          "value": "LICENSE"
+        },
+        {
+          "name": "cdx:golem:modulePath",
+          "value": "golang.org/x/sys"
+        },
+        {
+          "name": "cdx:license:category",
+          "value": "Unstated License"
+        },
+        {
+          "name": "internal:ModuleGoVersion",
+          "value": "1.26.0"
+        },
+        {
+          "name": "internal:SrcFile",
+          "value": "go.mod"
+        },
+        {
+          "name": "internal:SrcGoMod",
+          "value": "/tmp/gopath/pkg/mod/cache/download/golang.org/x/sys/@v/v0.49.0.mod"
+        }
+      ],
+      "evidence": {
+        "identity": [
+          {
+            "field": "purl",
+            "confidence": 0.5,
+            "methods": [
+              {
+                "technique": "manifest-analysis",
+                "confidence": 0.5,
+                "value": "go.mod"
+              }
+            ],
+            "concludedValue": "go.mod"
+          }
+        ]
+      }
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "aes",
+      "bom-ref": "crypto/algorithm/aes@2.16.840.1.101.3.4.1",
+      "description": "NIST Algorithm",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "oid": "2.16.840.1.101.3.4.1",
+        "algorithmProperties": {
+          "primitive": "block-cipher"
+        }
+      },
+      "properties": [
+        {
+          "name": "cdx:golem:crypto:sourceLocation",
+          "value": "/app/crypto.go:127:16"
+        },
+        {
+          "name": "cdx:golem:crypto:strength",
+          "value": "strong"
+        },
+        {
+          "name": "cdx:golem:crypto:symbol",
+          "value": "crypto/aes.NewCipher"
+        },
+        {
+          "name": "cdx:golem:crypto:usageScope",
+          "value": "runtime"
+        }
+      ],
+      "tags": [
+        "cryptographic-asset"
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "md5",
+      "bom-ref": "crypto/algorithm/md5@1.2.840.113549.2.5",
+      "description": "Rivest, Shamir and Adleman (RSA) algorithm coupled with an Message Digest #5 (MD5) algorithm",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "oid": "1.2.840.113549.2.5",
+        "algorithmProperties": {
+          "primitive": "hash"
+        }
+      },
+      "properties": [
+        {
+          "name": "cdx:golem:crypto:sourceLocation",
+          "value": "/app/crypto.go:182:9"
+        },
+        {
+          "name": "cdx:golem:crypto:strength",
+          "value": "weak"
+        },
+        {
+          "name": "cdx:golem:crypto:symbol",
+          "value": "crypto/md5.Sum"
+        },
+        {
+          "name": "cdx:golem:crypto:usageScope",
+          "value": "runtime"
+        }
+      ],
+      "tags": [
+        "cryptographic-asset"
+      ]
+    },
+    {
+      "type": "cryptographic-asset",
+      "name": "sha-256",
+      "bom-ref": "crypto/algorithm/sha-256@2.16.840.1.101.3.4.2.1",
+      "description": "NIST Algorithm",
+      "cryptoProperties": {
+        "assetType": "algorithm",
+        "oid": "2.16.840.1.101.3.4.2.1",
+        "algorithmProperties": {
+          "primitive": "hash"
+        }
+      },
+      "properties": [
+        {
+          "name": "cdx:golem:crypto:sourceLocation",
+          "value": "/app/crypto.go:87:7"
+        },
+        {
+          "name": "cdx:golem:crypto:strength",
+          "value": "strong"
+        },
+        {
+          "name": "cdx:golem:crypto:symbol",
+          "value": "crypto/sha256.New"
+        },
+        {
+          "name": "cdx:golem:crypto:usageScope",
+          "value": "runtime"
+        }
+      ],
+      "tags": [
+        "cryptographic-asset"
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:golang/golang.org/x/crypto@v0.58.0",
+      "dependsOn": [
+        "pkg:golang/golang.org/x/sys@v0.49.0"
+      ]
+    },
+    {
+      "ref": "pkg:golang/golang.org/x/sys@v0.49.0",
+      "dependsOn": []
+    }
+  ],
+  "annotations": [
+    {
+      "bom-ref": "metadata-annotations",
+      "subjects": [
+        "library:vaultshare:"
+      ],
+      "annotator": {
+        "component": {
+          "group": "@cdxgen",
+          "name": "cdxgen",
+          "version": "13.0.0",
+          "purl": "pkg:npm/%40cdxgen/cdxgen@13.0.0",
+          "type": "application",
+          "bom-ref": "pkg:npm/@cdxgen/cdxgen@13.0.0",
+          "publisher": "OWASP Foundation",
+          "authors": [
+            {
+              "name": "OWASP Foundation"
+            }
+          ]
+        }
+      },
+      "timestamp": "2026-11-10T14:32:39Z",
+      "text": "This Cryptography Bill-of-Materials (CBOM) document was created on Tuesday, November 10, 2026 with cdxgen. The data was captured during the build lifecycle phase. The document describes an application named 'vaultshare'. There are 3 cryptographic assets listed under components in this CBOM. There are 6 components. The package type in this CBOM is golang with 2 purl namespaces described under components. The components were identified from the source files: go.mod."
+    }
+  ]
+}
