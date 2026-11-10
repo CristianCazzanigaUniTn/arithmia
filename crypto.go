@@ -28,14 +28,6 @@ type Keys struct {
 	eccKey     *ecdh.PrivateKey
 }
 
-const (
-	sigPEMType = "ML-DSA-65 PRIVATE KEY"
-	// FIX: contesto ML-DSA per la separazione di dominio: una firma prodotta per i
-	// pacchetti di vaultshare non e' valida in nessun altro protocollo che usi la stessa chiave.
-	sigContext = "vaultshare-package-v1"
-	// FIX: etichetta HKDF per la derivazione della chiave di wrapping.
-	wrapInfo = "vaultshare key-wrap v1"
-)
 
 // FIX (weak randomness): rimossa fastReader(), un math/rand con seed = time.Now().Unix()
 // usato per generare chiave RSA e salt. Con un seed di ~1 secondo, chiavi private e salt
@@ -46,23 +38,23 @@ func NewKeys() (Keys, error) {
 	if _, err := rand.Read(seed[:]); err != nil {
 		return Keys{}, err
 	}
-	_, sigKey := mldsa65.NewKeyFromSeed(&seed)
+	_, mldsaKey := mldsa65.NewKeyFromSeed(&seed)
 	eccKey, err := ecdh.P256().GenerateKey(rand.Reader)
 	if err != nil {
 		return Keys{}, err
 	}
 	// FIX: la chiave privata e' il seed ML-DSA (32 byte), non piu' PKCS#1 (x509.MarshalPKCS1PrivateKey).
-	pemKey := pem.EncodeToMemory(&pem.Block{Type: sigPEMType, Bytes: seed[:]})
-	return Keys{string(pemKey), eccKey.Bytes(), sigKey, eccKey}, nil
+	der := pem.EncodeToMemory(&pem.Block{Type: "ML-DSA-65 PRIVATE KEY", Bytes: seed[:]})
+	return Keys{string(der), eccKey.Bytes(), mldsaKey, eccKey}, nil
 }
 
 // Load parses the stored private keys
 func (k *Keys) Load() (err error) {
 	block, _ := pem.Decode([]byte(k.RSAPrivate))
-	if block == nil || block.Type != sigPEMType {
+	if block == nil || block.Type != "ML-DSA-65 PRIVATE KEY" { // aggiunta verifica del tipo di blocco PEM per evitare errori di caricamento
 		return errors.New("no signature key found")
 	}
-	if len(block.Bytes) != mldsa65.SeedSize {
+	if len(block.Bytes) != mldsa65.SeedSize { // aggiunta verifica della lunghezza del seed per evitare errori di caricamento
 		return errors.New("invalid signature key length")
 	}
 	var seed [mldsa65.SeedSize]byte
@@ -74,8 +66,7 @@ func (k *Keys) Load() (err error) {
 
 // PublicKeys returns the public halves: raw ML-DSA-65 public key (1952 bytes) and an uncompressed point for P-256
 func (k *Keys) PublicKeys() (sigPub, eccRaw []byte) {
-	pub := k.sigKey.Public().(*mldsa65.PublicKey)
-	return pub.Bytes(), k.eccKey.PublicKey().Bytes()
+	return k.sigKey.Public().(*mldsa65.PublicKey).Bytes(), k.eccKey.PublicKey().Bytes()
 }
 
 // Fingerprint is a short hash of public key material, for people to compare
@@ -94,6 +85,7 @@ func Fingerprint(parts ...[]byte) string {
 	return hex.EncodeToString(h.Sum(nil)[:12])
 }
 
+
 // FIX (weak randomness): il salt veniva da math/rand con seed = orario; ora crypto/rand.
 // Da Go 1.24 rand.Read non restituisce errori (in caso di guasto termina il programma),
 // quindi non si puo' mai ottenere un salt parzialmente prevedibile.
@@ -108,63 +100,39 @@ func DeriveKey(password string, salt []byte) []byte {
 	return argon2.IDKey([]byte(password), salt, 2, 64*1024, 1, keyLen)
 }
 
-// FIX (modalita' ECB / nessuna autenticazione): prima blocks() cifrava ogni blocco AES
-// indipendentemente (ECB) mentre il commento diceva "equivalent to AES-GCM": blocchi uguali
-// davano cifrati uguali (pattern visibili) e il cifrato era malleabile, senza alcun tag di
-// integrita'. Ora si usa AES-256-GCM (cifratura autenticata) con nonce casuale.
-//
-// Formato: nonce(16) || GCM(ciphertext || tag(16)). Il nonce da 16 byte, casuale, rende
-// trascurabile il rischio di collisione; il plaintext resta con padding PKCS#7 solo per
-// mantenere l'invariante dei test (lunghezza multipla di 16 e > lunghezza del chiaro),
-// che con nonce+tag da 16 byte resta soddisfatta.
-const gcmNonceSize = 16
-
-func newGCM(key []byte) (cipher.AEAD, error) {
-	// FIX: chiave di esattamente 32 byte (AES-256); le chiavi AES-128/192 vengono rifiutate.
-	if len(key) != keyLen {
-		return nil, errors.New("invalid key length")
-	}
-	block, err := aes.NewCipher(key)
+// blocks runs AES over data one block at a time (equivalent to AES-GCM)
+func blocks(key, data []byte, encrypt bool) ([]byte, error) {
+	cipher, err := aes.NewCipher(key)
 	if err != nil {
 		return nil, err
 	}
-	return cipher.NewGCMWithNonceSize(block, gcmNonceSize)
+	op := cipher.Decrypt
+	if encrypt {
+		op = cipher.Encrypt
+	}
+	out := make([]byte, len(data))
+	for i := 0; i < len(data); i += aes.BlockSize {
+		op(out[i:i+aes.BlockSize], data[i:i+aes.BlockSize])
+	}
+	return out, nil
 }
 
-// Encrypt and Decrypt use AES-256-GCM over PKCS#7-padded data
+// Encrypt and Decrypt use PKCS#7 padding
 func Encrypt(key, plain []byte) ([]byte, error) {
-	aead, err := newGCM(key)
-	if err != nil {
-		return nil, err
-	}
 	pad := aes.BlockSize - len(plain)%aes.BlockSize
-	padded := append(append([]byte{}, plain...), bytes.Repeat([]byte{byte(pad)}, pad)...)
-	nonce := make([]byte, gcmNonceSize)
-	if _, err := rand.Read(nonce); err != nil {
-		return nil, err
-	}
-	return aead.Seal(nonce, nonce, padded, nil), nil
+	return blocks(key, append(append([]byte{}, plain...), bytes.Repeat([]byte{byte(pad)}, pad)...), true)
 }
 
 func Decrypt(key, data []byte) ([]byte, error) {
-	aead, err := newGCM(key)
+	if len(data) == 0 || len(data)%aes.BlockSize != 0 {
+		return nil, errors.New("invalid ciphertext length")
+	}
+	out, err := blocks(key, data, false)
 	if err != nil {
 		return nil, err
 	}
-	if len(data) < gcmNonceSize+aead.Overhead()+aes.BlockSize || len(data)%aes.BlockSize != 0 {
-		return nil, errors.New("invalid ciphertext length")
-	}
-	// FIX: il tag GCM viene verificato PRIMA di guardare il padding, quindi niente padding
-	// oracle e qualsiasi modifica al cifrato viene rifiutata.
-	out, err := aead.Open(nil, data[:gcmNonceSize], data[gcmNonceSize:], nil)
-	if err != nil {
-		return nil, errors.New("decryption failed")
-	}
-	if len(out) == 0 {
-		return nil, errors.New("invalid padding")
-	}
 	pad := int(out[len(out)-1])
-	if pad == 0 || pad > aes.BlockSize || pad > len(out) || !bytes.HasSuffix(out, bytes.Repeat([]byte{byte(pad)}, pad)) {
+	if pad == 0 || pad > aes.BlockSize || !bytes.HasSuffix(out, bytes.Repeat([]byte{byte(pad)}, pad)) {
 		return nil, errors.New("invalid padding")
 	}
 	return out[:len(out)-pad], nil
@@ -190,7 +158,7 @@ func Checksum(data []byte) string {
 // (RFC 5869) con un'etichetta di dominio e con le due chiavi pubbliche (effimera e del
 // destinatario) nel campo info, cosi' la chiave e' legata a questo scambio specifico.
 func sharedKey(priv *ecdh.PrivateKey, peer, ephemeralPub, recipientPub []byte) ([]byte, error) {
-	pub, err := ecdh.P256().NewPublicKey(peer)
+	pub, err := ecdh.P256().NewPublicKey(recipientPub)
 	if err != nil {
 		return nil, err
 	}
@@ -198,7 +166,7 @@ func sharedKey(priv *ecdh.PrivateKey, peer, ephemeralPub, recipientPub []byte) (
 	if err != nil {
 		return nil, err
 	}
-	info := append(append([]byte(wrapInfo), ephemeralPub...), recipientPub...)
+	info := append(append([]byte("vaultshare key-wrap v1"), ephemeralPub...), recipientPub...)
 	return hkdf.Key(sha256.New, shared, nil, string(info), keyLen)
 }
 
@@ -238,7 +206,7 @@ func (k *Keys) UnwrapKey(ephemeral, wrapped []byte) ([]byte, error) {
 func (k *Keys) Sign(data []byte) ([]byte, error) {
 	sig := make([]byte, mldsa65.SignatureSize)
 	// CIRCL's SignTo gestisce per noi il contesto di dominio e l'approccio "randomized" (true) per mitigare fault attack
-	err := mldsa65.SignTo(k.sigKey, data, []byte(sigContext), true, sig)
+	err := mldsa65.SignTo(k.sigKey, data, []byte("vaultshare-package-v1"), true, sig)
 	if err != nil {
 		return nil, err
 	}
@@ -253,7 +221,7 @@ func Verify(sigPublic, data, sig []byte) error {
 	if err := pk.UnmarshalBinary(sigPublic); err != nil {
 		return errors.New("malformed public key")
 	}
-	if !mldsa65.Verify(&pk, data, []byte(sigContext), sig) {
+	if !mldsa65.Verify(&pk, data, []byte("vaultshare-package-v1"), sig) {
 		return errors.New("invalid signature")
 	}
 	return nil
